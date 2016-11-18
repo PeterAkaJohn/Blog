@@ -1,5 +1,115 @@
 {% extends "base.html" %}
 
 {% block content %}
-  {{post.render() | safe}}
+<div class="row">
+  {% if same_user %}
+  <button type="submit" class="btn btn-info pull-left" name="button" data-toggle="modal" data-target="#editModal">Edit</button>
+  <form method="post" action="post/delete">
+    <div class="form-group pull-right">
+      <input type="hidden" name="post_id" value="{{post.key().id()}}">
+      <input type="hidden" name="post_user_id" value="{{post.user_id}}">
+      <button type="submit" class="btn btn-danger" name="button">Delete</button>
+    </div>
+  </form>
+  {% endif %}
+  <div class="col-xs-12">
+    {{post.render() | safe}}
+  </div>
+  {% if not same_user %}
+  <form class="pull-left" action="post/like" method="post">
+    <input type="hidden" name="post_id" value="{{post.key().id()}}">
+    <input type="hidden" name="post_user_id" value="{{post.user_id}}">
+    <button type="submit" class="btn btn-success" name="button"><span class="{{user_liked}}">Like</span></button>
+  </form>
+{% endif %}
+
+<div class="col-xs-12">
+  <h2>Add Comment</h2>
+  <form action="post/addcomment" method="post">
+      <input type="hidden" name="post_id" value="{{post.key().id()}}">
+      <input type="hidden" name="post_user_id" value="{{post.user_id}}">
+      <div class="form-group">
+        <label for="comment"></label>
+        <textarea class="form-control" name="comment"></textarea>
+        <span class="error">{{error_comment}}</span>
+      </div>
+      <button type="submit" name="button">Add</button>
+  </form>
+</div>
+
+<div class="col-xs-12">
+  <h2 class="text-center">Comments</h2>
+
+  {% if comments %}
+  {% for comment in comments %}
+  <div class="col-xs-12">
+    <h3>
+      {{comment.content}}
+    </h3>
+    <cite>{{comment.username}}, {{comment.date.strftime("%b %d, %Y")}}</cite>
+    {% if user_id == comment.user_id %}
+    <button type="submit" class="btn btn-info pull-left" name="button" data-toggle="modal" data-target="#commentEditModal{{comment.key().id()}}">Edit</button>
+    <form class="pull-right" action="post/comment/delete" method="post">
+      <input type="hidden" name="comment_id" value="{{comment.key().id()}}">
+      <input type="hidden" name="post_id" value="{{post.key().id()}}">
+      <input type="hidden" name="comment_user_id" value="{{comment.user_id}}">
+      <button type="submit" name="button" class="btn btn-danger">Delete</button>
+    </form>
+    {% endif %}
+  </div>
+  <div class="modal fade" id="commentEditModal{{comment.key().id()}}" tabindex="-1" role="dialog" aria-labelledby="commentEditModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="exampleModalLabel">Edit Comment</h4>
+        </div>
+        <form method="post" action="post/comment/edit">
+        <div class="modal-body">
+          <input type="hidden" name="comment_id" value="{{comment.key().id()}}">
+          <input type="hidden" name="post_id" value="{{post.key().id()}}">
+          <input type="hidden" name="comment_user_id" value="{{comment.user_id}}">
+            <div class="form-group">
+              <label for="message-text" class="control-label"></label>
+              <textarea class="form-control" name="new-comment"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Send message</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% endif %}
+</div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="exampleModalLabel">Edit Content</h4>
+      </div>
+      <form method="post" action="post/edit">
+      <div class="modal-body">
+        <input type="hidden" name="post_id" value="{{post.key().id()}}">
+        <input type="hidden" name="post_user_id" value="{{post.user_id}}">
+          <div class="form-group">
+            <label for="message-text" class="control-label"></label>
+            <textarea class="form-control" name="new-content"></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Send message</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
 {% endblock %}

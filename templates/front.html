@@ -3,8 +3,16 @@
 {% block content %}
 
   {% for p in posts %}
-    {{ p.render() | safe }}
-    <br><br>
+<div class="row">
+  <div class="col-xs-12">
+    <a href="/blog/{{p.key().id()}}" class="link-post">
+      <div class="card hoverable">
+        {{ p.render() | safe }}
+      </div>
+    </a>
+  </div>
+</div>
+<br><br>
   {% endfor %}
 
 {% endblock %}

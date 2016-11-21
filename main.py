@@ -121,6 +121,7 @@ class Post(db.Model):
     last_modified = db.DateTimeProperty(auto_now = True)
     user_id = db.IntegerProperty(required = True)
     rating = db.ListProperty(long)
+    post_user_name = db.StringProperty(required = True)
 
     def render(self):
         self._render_text = self.content.replace('\n', '<br>')
@@ -152,6 +153,9 @@ class Comment(db.Model):
 
 class DeletePost(BlogHandler):
     def post(self):
+        if not self.user:
+            self.redirect('/')
+            return
         post_id = self.request.get('post_id')
         post_user_id = self.request.get('post_user_id')
         logging.info(post_id)
@@ -161,9 +165,6 @@ class DeletePost(BlogHandler):
             post = Post.by_id(int(post_id))
             post.delete()
             time.sleep(1)
-            self.response.headers["Pragma"]="no-cache"
-            self.response.headers["Cache-Control"]="no-cache, no-store, must-revalidate, pre-check=0, post-check=0"
-            self.response.headers["Expires"]="Thu, 01 Dec 1994 16:00:00"
             self.redirect('/')
         else:
             self.redirect('/blog/' + post_id)
@@ -171,6 +172,9 @@ class DeletePost(BlogHandler):
 class DeleteComment(BlogHandler):
     """docstring for DeleteComment."""
     def post(self):
+        if not self.user:
+            self.redirect('/')
+            return
         post_id = self.request.get('post_id')
         comment_id = self.request.get('comment_id')
         comment_user_id = self.request.get('comment_user_id')
@@ -180,9 +184,6 @@ class DeleteComment(BlogHandler):
             comment = Comment.by_id(int(comment_id))
             comment.delete()
             time.sleep(1)
-            self.response.headers["Pragma"]="no-cache"
-            self.response.headers["Cache-Control"]="no-cache, no-store, must-revalidate, pre-check=0, post-check=0"
-            self.response.headers["Expires"]="Thu, 01 Dec 1994 16:00:00"
             self.redirect('/blog/' + post_id)
         else:
             self.redirect('/blog/' + post_id)
@@ -200,10 +201,7 @@ class EditPost(BlogHandler):
             post.content = content
             post.put()
             #time.sleep(2)
-            self.response.headers["Pragma"]="no-cache"
-            self.response.headers["Cache-Control"]="no-cache, no-store, must-revalidate, pre-check=0, post-check=0"
-            self.response.headers["Expires"]="Thu, 01 Dec 1994 16:00:00"
-        self.redirect('/blog/' + post_id)
+            self.redirect('/blog/' + post_id)
 
 class EditComment(BlogHandler):
     """docstring for EditComment."""
@@ -219,14 +217,14 @@ class EditComment(BlogHandler):
             comment.content = content
             comment.put()
             #time.sleep(2)
-        self.response.headers["Pragma"]="no-cache"
-        self.response.headers["Cache-Control"]="no-cache, no-store, must-revalidate, pre-check=0, post-check=0"
-        self.response.headers["Expires"]="Thu, 01 Dec 1994 16:00:00"
         self.redirect('/blog/' + post_id)
 
 class LikePost(BlogHandler):
     """docstring for LikePost."""
     def post(self):
+        if not self.user:
+            self.redirect('/login')
+            return
         post_id = self.request.get('post_id')
         post_user_id = self.request.get('post_user_id')
         user_id = self.user.key().id()
@@ -237,14 +235,11 @@ class LikePost(BlogHandler):
             else:
                 post.rating.append(user_id)
             post.put()
-        self.response.headers["Pragma"]="no-cache"
-        self.response.headers["Cache-Control"]="no-cache, no-store, must-revalidate, pre-check=0, post-check=0"
-        self.response.headers["Expires"]="Thu, 01 Dec 1994 16:00:00"
         self.redirect('/blog/' + post_id)
 
 class BlogFront(BlogHandler):
     def get(self):
-        posts = greetings = Post.get_all()
+        posts = Post.get_all()
         self.render('front.html', posts = posts)
 
 class PostPage(BlogHandler):
@@ -256,18 +251,27 @@ class PostPage(BlogHandler):
             self.error(404)
             return
         same_user = False
-        if self.user.key().id() == post.user_id:
-            same_user = True
+        user_id = False
+        user_liked = None
+        if self.user:
+            user_id = self.user.key().id()
+            user_liked = check_user_liked_post(user_id, post)
+            if user_id == post.user_id:
+                same_user = True
 
-        logging.info(self.user.key().id())
+        self.render("permalink.html", post = post, comments = comments, same_user = same_user, user_id = user_id, user_liked = user_liked)
 
-        self.render("permalink.html", post = post, comments = comments, same_user = same_user, user_id = int(self.user.key().id()))
+def check_user_liked_post(user_id, post):
+    if user_id in post.rating:
+        return True
+
 
 class NewComment(BlogHandler):
     """docstring for NewComment."""
     def post(self):
         if not self.user:
-            self.redirect('/')
+            self.redirect('/login')
+            return
 
         post_id = self.request.get('post_id')
         content = self.request.get('comment')
@@ -275,9 +279,6 @@ class NewComment(BlogHandler):
         if content:
             comment = Comment(parent = blog_key(), content = content, username = self.user.name, user_id = self.user.key().id(), post_id = int(post_id))
             comment.put()
-            self.response.headers["Pragma"]="no-cache"
-            self.response.headers["Cache-Control"]="no-cache, no-store, must-revalidate, pre-check=0, post-check=0"
-            self.response.headers["Expires"]="Thu, 01 Dec 1994 16:00:00"
             self.redirect('/blog/' + post_id)
         else:
             error = "content, please!"
@@ -294,17 +295,15 @@ class NewPost(BlogHandler):
 
     def post(self):
         if not self.user:
-            self.redirect('/')
+            self.redirect('/login')
+            return
 
         subject = self.request.get('subject')
         content = self.request.get('content')
 
         if subject and content:
-            p = Post(parent = blog_key(), subject = subject, content = content, user_id = self.user.key().id())
+            p = Post(parent = blog_key(), subject = subject, content = content, user_id = self.user.key().id(), post_user_name = self.user.name)
             p.put()
-            self.response.headers["Pragma"]="no-cache"
-            self.response.headers["Cache-Control"]="no-cache, no-store, must-revalidate, pre-check=0, post-check=0"
-            self.response.headers["Expires"]="Thu, 01 Dec 1994 16:00:00"
             self.redirect('/blog/%s' % str(p.key().id()))
         else:
             error = "subject and content, please!"

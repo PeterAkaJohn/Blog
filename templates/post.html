@@ -2,17 +2,16 @@
   <div class="post-heading">
     <div class="post-title">
       {{p.subject}}
+      <div class="pull-right">
+        <span>{{p.rating | length}}</span>
+      </div>
     </div>
-
-    <div class="post-date">
-      {{p.created.strftime("%b %d, %Y")}}
+    <div class="pull-left post-user-date col-xs-12">
+      {{p.post_user_name}}, {{p.created.strftime("%b %d, %Y")}}
     </div>
   </div>
 
-  <div class="post-content">
+  <div class="col-xs-12">
     {{p._render_text | safe}}
-  </div>
-  <div class="pull-right">
-    <span>{{p.rating | length}}</span>
   </div>
 </div>

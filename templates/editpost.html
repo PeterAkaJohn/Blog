@@ -2,18 +2,21 @@
 
 {% block content %}
 
-<div class="row">
-  <div class="col-xs-12">
-    <form method="post" action="post/edit">
-      <input type="hidden" name="post_id" value="{{post.key().id()}}">
-      <input type="hidden" name="post_user_id" value="{{post.user_id}}">
-      <div class="form-group">
-        <label for="content"></label>
-        <input type="text" class="form-control" id="content" name="content" placeholder="">
-      </div>
-      <button type="submit" class="btn btn-info" name="button">Edit</button>
-    </form>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+      <form method="post" action="post/edit">
+        <input type="hidden" name="post_id" value="{{post.key().id()}}">
+        <input type="hidden" name="post_user_id" value="{{post.user_id}}">
+        <div class="form-group">
+          <label for="content"></label>
+          <input type="text" class="form-control" id="content" name="content" placeholder="">
+        </div>
+        <button type="submit" class="btn btn-info" name="button">Edit</button>
+      </form>
+    </div>
   </div>
 </div>
+
 
 {% endblock %}

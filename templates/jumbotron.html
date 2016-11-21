@@ -1,0 +1,40 @@
+
+
+<header class="jumbotron parallax">
+  <div class="container full-height-div">
+    <div class="row text-center full-height-div">
+      <div class="col-xs-12 col-md-8 full-height-div">
+        <h2>Blog Name</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nunc metus, sagittis ut fringilla a, auctor non urna. Phasellus sodales felis tellus, pellentesque eleifend nulla imperdiet eget. Phasellus sollicitudin libero quis euismod tristique. Sed auctor finibus eros sit amet pharetra. Nam finibus, massa sed maximus finibus, nunc ante ultrices purus, vitae suscipit lorem turpis vel arcu. In dictum dapibus diam. Phasellus pretium enim at ex sollicitudin, et elementum urna blandit. Curabitur consectetur tincidunt magna vitae elementum. Aliquam hendrerit eu velit nec malesuada. Vivamus vitae ex eu felis egestas ornare at eu dolor.
+
+Ut vel cursus sem. Curabitur ac tincidunt justo. Phasellus ultricies tellus nisl, a luctus dolor porttitor in. Vestibulum vitae nulla tincidunt, maximus lectus in, aliquam felis. Praesent cursus velit ornare magna varius tincidunt. Donec ut odio vel massa porttitor rutrum eu non nisl. Ut molestie velit hendrerit, elementum felis sed, consectetur justo.
+
+Donec nec felis et odio porta mollis vel at neque. In sagittis, orci a aliquam fermentum, nulla lacus euismod eros, quis lobortis mi sapien nec risus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Fusce accumsan placerat nisl at posuere. Phasellus in lobortis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque accumsan cursus dui, at fermentum eros placerat eu. Etiam velit sapien, tempor at nulla eget, tempor posuere lorem. Phasellus rutrum nulla sapien, at bibendum nisl consectetur sed. Donec sit amet erat vel tortor suscipit suscipit ut a tellus. Phasellus eget pharetra nisi. Suspendisse vehicula, magna eu malesuada dapibus, nisi nisl ultricies mi, nec luctus augue odio id neque. Sed ac tempor leo. Donec quis nisi ac dui tincidunt feugiat.
+        </p>
+      </div>
+      <div class="col-xs-12 col-md-4 full-height-div register-section">
+        <h2>Signup</h2>
+        <form method="post" action="/signup">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="Username" value="{{username}}" name="username"><span class="error">{{error_username}}</span>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" name="password"><span class="error">{{error_password}}</span>
+          </div>
+          <div class="form-group">
+            <label for="verify">Verify</label>
+            <input type="password" class="form-control" id="verfiy" name="verify"><span class="error">{{error_verify}}</span>
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" class="form-control" id="email" placeholder="E-mail" value="{{email}}" name="email"><span class="error">{{error_email}}</span>
+          </div>
+          <button type="submit" class="btn btn-success pull-right">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</header>

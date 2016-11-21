@@ -11,9 +11,6 @@
     margin-bottom: 40px;
   }
 
-  .navbar-custom {
-    background-color: #30383B;
-  }
 
   .navbar-custom .navbar-collapse {
     background-color: #2D383B;
@@ -28,6 +25,14 @@
   .scrolled-nav .navbar-collapse {
     background-color: #2572DE;
     text-align: right;
+  }
+
+}
+
+@media screen and (min-width: 992px) {
+
+  .register-section {
+    padding-top: 5em;
   }
 
 }

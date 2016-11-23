@@ -11,7 +11,6 @@
     margin-bottom: 40px;
   }
 
-
   .navbar-custom .navbar-collapse {
     background-color: #2D383B;
     text-align: right;
@@ -32,7 +31,7 @@
 @media screen and (min-width: 992px) {
 
   .register-section {
-    padding-top: 5em;
+    padding-top: 1em;
   }
 
 }

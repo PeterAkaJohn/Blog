@@ -10,7 +10,7 @@
     <div class="col-xs-12 col-md-4">
       <a href="/blog/{{p.key().id()}}" class="link-post">
         <div class="card hoverable rounded-corners">
-          {{ p.render() | safe }}
+          {% include 'post-card.html' %}
         </div>
       </a>
     </div>

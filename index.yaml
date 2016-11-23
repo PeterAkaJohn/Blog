@@ -16,6 +16,30 @@ indexes:
   - name: date
     direction: desc
 
+- kind: Comment
+  properties:
+  - name: user_id
+  - name: date
+    direction: desc
+
+- kind: Comment
+  properties:
+  - name: username
+  - name: date
+    direction: desc
+
+- kind: Post
+  properties:
+  - name: post_user_name
+  - name: created
+    direction: desc
+
+- kind: Post
+  properties:
+  - name: user_id
+  - name: created
+    direction: desc
+
 - kind: Post
   ancestor: yes
   properties:

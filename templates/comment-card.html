@@ -1,0 +1,7 @@
+<div class="card-block">
+  <p class="card-text">
+    {{comment.content | safe}}
+  </p>
+  <cite class="card-footer">{{comment.username}},
+    {{comment.date.strftime("%b %d, %Y")}}</cite>
+</div>

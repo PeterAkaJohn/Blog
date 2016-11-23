@@ -134,6 +134,11 @@ class Post(db.Model):
     @classmethod
     def get_all(cls):
         return Post.all().order('-created')
+
+    @classmethod
+    def get_all_user_posts(cls, username):
+        return Post.all().filter('post_user_name =', username).order('-created').fetch(None)
+
 class Comment(db.Model):
     """docstring for Comment."""
     content = db.TextProperty(required=True)
@@ -149,6 +154,10 @@ class Comment(db.Model):
     @classmethod
     def get_all(cls, post_id):
         return Comment.all().filter('post_id =', post_id).order('-date').fetch(None)
+
+    @classmethod
+    def get_all_user_comments(cls, username):
+        return Comment.all().filter('username =', username).order('-date').fetch(None)
 
 
 class DeletePost(BlogHandler):
@@ -210,6 +219,8 @@ class EditComment(BlogHandler):
         comment_user_id = self.request.get('comment_user_id')
         comment_id = self.request.get('comment_id')
         content = self.request.get('new-comment')
+        if not content:
+            content = " "
         if self.user.key().id() == long(comment_user_id):
             #post_key = db.Key.from_path('Post', int(post_id), parent=blog_key())
             #post = db.get(post_key)
@@ -393,6 +404,15 @@ class Logout(BlogHandler):
         self.logout()
         self.redirect('/')
 
+class UserPage(BlogHandler):
+    """docstring for UserPage."""
+    def get(self, username):
+        #user_id = self.user.key().id()
+        posts = Post.get_all_user_posts(username)
+        comments = Comment.get_all_user_comments(username)
+        self.render('userpage.html', posts = posts, comments = comments)
+
+
 class Welcome(BlogHandler):
     def get(self):
         username = self.request.get('username')
@@ -412,6 +432,7 @@ app = webapp2.WSGIApplication([('/', BlogFront),
                                ('/blog/post/like', LikePost),
                                ('/blog/post/addcomment', NewComment),
                                ('/blog/post/comment/delete', DeleteComment),
-                               ('/blog/post/comment/edit', EditComment)
+                               ('/blog/post/comment/edit', EditComment),
+                               ('/user/(.*)', UserPage)
                                ],
                               debug=True)

@@ -6,12 +6,17 @@
         <span>{{p.rating | length}}</span>
       </div>
     </div>
-    <div class="pull-left post-user-date col-xs-12">
-      {{p.post_user_name}}, {{p.created.strftime("%b %d, %Y")}}
-    </div>
   </div>
 
   <div class="col-xs-12">
     {{p._render_text | safe}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="pull-left post-user-date col-xs-12">
+    <a href="/user/{{p.post_user_name}}">{{p.post_user_name}}</a>, {{p.created.strftime("%b %d, %Y")}}
+    </div>
   </div>
 </div>

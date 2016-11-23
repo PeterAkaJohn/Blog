@@ -1,10 +1,11 @@
 body {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: 400;
     background-color: #30383B;
     color: #C2C2C2;
     width: 100%;
     height: 100%;
+    font-size: 16px;
 }
 
 html {
@@ -19,9 +20,14 @@ hr {
 
 .jumbotron {
   padding-top: 70px;
-  font-size: 2em;
+  font-size: 1.6em;
   display: flex;
   align-items: center;
+}
+
+.like-form {
+  padding-top: 1.5em;
+  padding-left: 1em;
 }
 
 .full-height-div {
@@ -54,31 +60,47 @@ hr {
     color: red;
 }
 
-label {
-  display: block;
-  font-size: 20px;
+.fa-thumbs-o-up {
+  margin-right: .5em;
 }
 
-label + label {
-    margin-top: 20px;
+.user-action {
+  width: 100%;
+  margin-left: 1em;
+  background: none;
+  border: 0;
 }
 
-input[type=text] {
-    font-size: 20px;
-    padding: 2px;
-    font-family: monospace;
+.user-action:active, .user-action:focus {
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.user-action + .user-action {
+  margin-top: 1em;
+}
+
+.fix-buttons {
+  padding-top: 2em;
 }
 
 textarea {
-  width: 500px;
+  width: 100%;
   height: 400px;
   font-size: 17px;
-  font-family: monospace;
+  color: black;
 }
 
 input[type=submit] {
   font-size: 24px;
   color: white;
+}
+
+.like-form {
+  margin-left: 1em;
+  margin-top: 1.3em;
 }
 
 .main-title {
@@ -108,7 +130,8 @@ input[type=submit] {
 }
 
 .post-user-date {
-  border-bottom: 2px solid #666;
+  margin-top: 3em;
+  border-top: 2px solid #666;
 }
 
 .post-content {
@@ -130,6 +153,69 @@ input[type=submit] {
     height: 200px;
     margin-bottom: 1em;
     overflow-y: hidden;
+}
+
+.card-block {
+  padding: 1.25rem;
+}
+
+.card-title {
+  margin-bottom: 1.5em;
+}
+
+.front-input {
+  background: transparent;
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 3em;
+  color: white;
+}
+
+.front-input::-webkit-input-placeholder {
+  text-align: center;
+  color: white;
+}
+
+.front-input:-moz-placeholder { /* Firefox 18- */
+  text-align: center;
+  color: white;
+}
+
+.front-input::-moz-placeholder {  /* Firefox 19+ */
+  text-align: center;
+  color: white;
+}
+
+.front-input:-ms-input-placeholder {
+  text-align: center;
+  color: white;
+}
+
+.form-control.front-input {
+  border: 2px solid white !important;
+  border-top: 0px !important;
+  border-left: 0px !important;
+  border-right: 0px !important;
+  border-radius: 0px !important;
+}
+
+.front-input:active {
+  border: 0 ;
+  outline: none;
+}
+
+.form-control.front-input:focus {
+  outline: none !important;
+  -webkit-box-shadow: 0 1px 0 0 #4285F4 !important;
+   box-shadow: 0 1px 0 0 #4285F4 !important;
+   border-bottom: 2px solid #4285F4 !important;
+}
+
+
+.card-footer {
+  position: absolute;
+  bottom: 2em;
+  right: 2em;
 }
 
 .link-post {

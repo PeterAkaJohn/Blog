@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container fix-overlapping">
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Posts</h2>
+    </div>
+    {% for p in posts %}
+    <div class="col-xs-12 col-md-4">
+      <a href="/blog/{{p.key().id()}}" class="link-post">
+        <div class="card hoverable rounded-corners">
+          {% include 'post-card.html' %}
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Comments</h2>
+    </div>
+    {% for comment in comments %}
+    <div class="col-xs-12 col-md-4">
+      <a href="/blog/{{comment.post_id}}" class="link-post">
+        <div class="card hoverable rounded-corners">
+          {% include 'comment-card.html' %}
+        </div>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

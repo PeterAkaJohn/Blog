@@ -1,0 +1,11 @@
+<div class="card-block">
+  <h4 class="card-title">
+    {{p.subject}} <span class="pull-right"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>{{p.rating | length}}</span>
+  </h4>
+  <p class="card-text">
+    {{p.content | safe}}
+  </p>
+  <cite class="card-footer">
+    {{p.post_user_name}}, {{p.created.strftime("%b %d, %Y")}}
+  </cite>
+</div>

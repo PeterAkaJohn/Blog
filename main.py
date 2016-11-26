@@ -38,6 +38,7 @@ class BlogHandler(webapp2.RequestHandler):
         params['user'] = self.user
         return render_str(template, **params)
 
+
     def render(self, template, **kw):
         self.write(self.render_str(template, **kw))
 
@@ -50,6 +51,25 @@ class BlogHandler(webapp2.RequestHandler):
     def read_secure_cookie(self, name):
         cookie_val = self.request.cookies.get(name)
         return cookie_val and check_secure_val(cookie_val)
+
+    # def render_postpage(self, post_id, errors):
+    #     post = Post.by_id(int(post_id))
+    #     comments = Comment.get_all(int(post_id))
+    #
+    #     if not post:
+    #         self.error(404)
+    #         return
+    #     same_user = False
+    #     user_id = False
+    #     user_liked = None
+    #     if self.user:
+    #         user_id = self.user.key().id()
+    #         user_liked = check_user_liked_post(user_id, post)
+    #         if user_id == post.user_id:
+    #             same_user = True
+    #
+    #     self.render("permalink.html", post = post, comments = comments, same_user = same_user, user_id = user_id, user_liked = user_liked, errors = errors)
+
 
     def login(self, user):
         self.set_secure_cookie('user_id', str(user.key().id()))
@@ -290,10 +310,10 @@ class NewComment(BlogHandler):
         if content:
             comment = Comment(parent = blog_key(), content = content, username = self.user.name, user_id = self.user.key().id(), post_id = int(post_id))
             comment.put()
-            self.redirect('/blog/' + post_id)
+            self.redirect('/blog/' + post_id, True)
         else:
             error = "content, please!"
-            self.redirect('/blog/'+ post_id)
+            self.redirect('/blog/'+ post_id, True)
             #self.render("permalink.html",error_comment=error)
 
 

@@ -1,6 +1,6 @@
 
 $(window).scroll(function() {
-    if ($(this).scrollTop() >= 100) { // this refers to window
+    if ($(this).scrollTop() >= 30) { // this refers to window
         $("nav").addClass("scrolled-nav");
     }
 

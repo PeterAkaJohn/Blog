@@ -26,6 +26,15 @@
     text-align: right;
   }
 
+  .like-form {
+    padding-left: 0;
+    margin-left: 0;
+  }
+
+  .user-action {
+    padding: 0 !important;
+  }
+
 }
 
 @media screen and (min-width: 992px) {

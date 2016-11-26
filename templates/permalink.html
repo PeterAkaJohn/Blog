@@ -1,155 +1,166 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container fix-overlapping">
-  <div class="row">
-    <div class="col-xs-2">
-      {% if not same_user %}
-      <div class="row">
-        <div class="col-xs-12">
-          <form class="like-form" action="post/like" method="post">
-            <input type="hidden" name="post_id" value="{{post.key().id()}}">
-            <input type="hidden" name="post_user_id" value="{{post.user_id}}">
-          {% if user_liked %}
-          <button type="submit" class="btn btn-danger" name="button">
-            <i class="fa fa-thumbs-down" aria-hidden="true"></i>
-          </button>
-          {% else %}
-          <button type="submit" class="btn btn-success" name="button">
-            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-          </button>
-          {% endif %}
-        </form>
-        </div>
-      </div>
-      {% endif %}
-      {% if same_user %}
-      <div class="row">
-        <div class="col-xs-12 fix-buttons">
-          <button type="submit" class="btn btn-info user-action" name="button" data-toggle="collapse" data-target="#editCollapse" aria-expanded="false" aria-controls="editCollapse"><i class="fa fa-cog" aria-hidden="true"></i></button>
-          <button type="submit" class="btn btn-danger user-action" name="button" data-toggle="modal" data-target="#deletepost" aria-expanded="false" aria-controls="deletepost"><i class="fa fa-trash" aria-hidden="true"></i></button>
-        </div>
-      </div>
-      {% endif %}
-    </div>
-    <div class="col-xs-10">
-      {{post.render() | safe}}
-    </div>
-    </div>
-
-    <div class="collapse" id="editCollapse">
-      <div class="row">
-        <div class="col-xs-12">
-          <form method="post" action="post/edit">
-            <input type="hidden" name="post_id" value="{{post.key().id()}}">
-            <input type="hidden" name="post_user_id" value="{{post.user_id}}">
-            <div class="form-group">
-              <label for="message-text" class="control-label"></label>
-              <textarea rows="8" class="form-control" name="new-content">{{post._render_text}}</textarea>
+    <div class="container fix-overlapping">
+        <div class="row">
+            <div class="col-xs-12">
+                {{post.render() | safe}}
             </div>
-            <button type="submit" class="btn btn-primary">Edit Message</button>
-          </div>
-        </form>
-      </div>
-      </div>
-
-  <div class="col-xs-12">
-    <h2>Add Comment</h2>
-    <form action="post/addcomment" method="post">
-      <input type="hidden" name="post_id" value="{{post.key().id()}}">
-      <input type="hidden" name="post_user_id" value="{{post.user_id}}">
-      <div class="form-group">
-        <label for="comment"></label>
-        <textarea class="form-control" name="comment"></textarea>
-        <span class="error">{{error_comment}}</span>
-      </div>
-      <button type="submit" class="btn btn-primary pull-right" name="button">Send</button>
-    </form>
-  </div>
-
-  <div class="col-xs-12">
-    <h2 class="text-center">Comments</h2>
-
-    {% if comments %}
-    {% for comment in comments %}
-    <div class="row">
-      <div class="col-xs-12">
-        <h3>
-          {{comment.content}}
-        </h3>
-        <cite>{{comment.username}},
-          {{comment.date.strftime("%b %d, %Y")}}</cite>
-          {% if user_id == comment.user_id %}
-          <button class="btn btn-info pull-left" name="button" data-toggle="collapse" data-target="#commentEditCollapse{{comment.key().id()}}"><i class="fa fa-cog" aria-hidden="true"></i></button>
-          <button class="btn btn-danger pull-right" name="button" data-toggle="modal" data-target="#delete-modal{{comment.key().id()}}"><i class="fa fa-trash" aria-hidden="true"></i></button>
-          {% endif %}
         </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="collapse" id="commentEditCollapse{{comment.key().id()}}">
-          <div class="col-xs-12">
-            <form method="post" action="post/comment/edit">
-              <input type="hidden" name="comment_id" value="{{comment.key().id()}}">
-              <input type="hidden" name="post_id" value="{{post.key().id()}}">
-              <input type="hidden" name="comment_user_id" value="{{comment.user_id}}">
-              <div class="form-group">
-                <label for="message-text" class="control-label"></label>
-                <textarea class="form-control" name="new-comment">{{comment.content}}</textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Edit Comment</button>
-            </form>
-          </div>
+        <div class="row">
+            <div class="col-xs-12">
+                {% if not same_user %}
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <form class="like-form" action="post/like" method="post">
+                                <input type="hidden" name="post_id" value="{{post.key().id()}}">
+                                <input type="hidden" name="post_user_id" value="{{post.user_id}}">
+                                {% if user_liked %}
+                                    <button type="submit" class="btn btn-danger pull-right" name="button">
+                                        <i class="fa fa-thumbs-down" aria-hidden="true"></i>
+                                    </button>
+                                {% else %}
+                                    <button type="submit" class="btn btn-success pull-right" name="button">
+                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                    </button>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if same_user %}
+                    <div class="row">
+                        <div class="col-xs-12 fix-buttons">
+                            <button type="submit" class="btn btn-info" name="button" data-toggle="collapse" data-target="#editCollapse" aria-expanded="false" aria-controls="editCollapse">
+                                <i class="fa fa-cog" aria-hidden="true"></i>
+                            </button>
+                            <button type="submit" class="btn btn-danger" name="button" data-toggle="modal" data-target="#deletepost" aria-expanded="false" aria-controls="deletepost">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
         </div>
-        <div class="modal fade" id="delete-modal{{comment.key().id()}}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">Confirm Delete?</h4>
-              </div>
-              <div class="modal-footer">
-                <form action="post/comment/delete" method="post">
-                  <input type="hidden" name="comment_id" value="{{comment.key().id()}}">
-                  <input type="hidden" name="post_id" value="{{post.key().id()}}">
-                  <input type="hidden" name="comment_user_id" value="{{comment.user_id}}">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <button type="submit" name="button" class="btn btn-danger">Delete</button>
+
+        <div class="collapse" id="editCollapse">
+            <div class="row">
+                <div class="col-xs-12">
+                    <form method="post" action="post/edit">
+                        <input type="hidden" name="post_id" value="{{post.key().id()}}">
+                        <input type="hidden" name="post_user_id" value="{{post.user_id}}">
+                        <div class="form-group">
+                            <label for="message-text" class="control-label"></label>
+                            <textarea rows="8" class="form-control full-width fix-color" name="new-content" required>{{post._render_text}}</textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Edit Message</button>
+                    </div>
                 </form>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
+
+        <div class="col-xs-12">
+            <h2>Add Comment</h2>
+            <form action="post/addcomment" method="post">
+                <input type="hidden" name="post_id" value="{{post.key().id()}}">
+                <input type="hidden" name="post_user_id" value="{{post.user_id}}">
+                <div class="form-group" required>
+                    <label for="comment"></label>
+                    <textarea class="form-control full-width fix-color" name="comment" required></textarea>
+                    <span class="error">{{error_comment}}</span>
+                </div>
+                <button type="submit" class="btn btn-primary pull-right" name="button">Send</button>
+            </form>
+        </div>
+
+        <div class="col-xs-12">
+            <h2 class="text-center comment-title">Comments</h2>
+
+            {% if comments %}
+                {% for comment in comments %}
+                    <div class="row comment-row">
+                        <div class="col-xs-12">
+                            <p>
+                                {{comment.content}}
+                            </p>
+                            <cite>{{comment.username}},
+                                {{comment.date.strftime("%c")}}
+                                {% if user_id == comment.user_id %}
+                                    <div class="pull-right">
+                                        <button class="btn btn-info pull-left comment-action" name="button" data-toggle="collapse" data-target="#commentEditCollapse{{comment.key().id()}}">
+                                            <i class="fa fa-cog" aria-hidden="true"></i>
+                                        </button>
+                                        <button class="btn btn-danger pull-right comment-action" name="button" data-toggle="modal" data-target="#delete-modal{{comment.key().id()}}">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </cite>
+                            {% endif %}
+                            <div class="col-xs-12">
+                                <div class="collapse" id="commentEditCollapse{{comment.key().id()}}">
+                                    <div class="col-xs-12">
+                                        <form method="post" action="post/comment/edit">
+                                            <input type="hidden" name="comment_id" value="{{comment.key().id()}}">
+                                            <input type="hidden" name="post_id" value="{{post.key().id()}}">
+                                            <input type="hidden" name="comment_user_id" value="{{comment.user_id}}">
+                                            <div class="form-group">
+                                                <label for="message-text" class="control-label"></label>
+                                                <textarea class="form-control full-width fix-color" name="new-comment" required>{{comment.content}}</textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Edit Comment</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="modal fade" id="delete-modal{{comment.key().id()}}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <h4 class="modal-title">Confirm Delete?</h4>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form action="post/comment/delete" method="post">
+                                                    <input type="hidden" name="comment_id" value="{{comment.key().id()}}">
+                                                    <input type="hidden" name="post_id" value="{{post.key().id()}}">
+                                                    <input type="hidden" name="comment_user_id" value="{{comment.user_id}}">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                    <button type="submit" name="button" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
-      {% endfor %}
-      {% endif %}
-    </div>
-  </div>
 </div>
 
 <div class="modal fade" id="deletepost" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-          <h4 class="modal-title">Confirm Delete?</h4>
-        </div>
-        <div class="modal-footer">
-          <form action="post/delete" method="post">
-            <div class="form-group pull-right">
-                <input type="hidden" name="post_id" value="{{post.key().id()}}">
-                <input type="hidden" name="post_user_id" value="{{post.user_id}}">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Confirm Delete?</h4>
             </div>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="submit" name="button" class="btn btn-danger">Delete</button>
-          </form>
+            <div class="modal-footer">
+                <form action="post/delete" method="post">
+                    <div class="form-group pull-right">
+                        <input type="hidden" name="post_id" value="{{post.key().id()}}">
+                        <input type="hidden" name="post_user_id" value="{{post.user_id}}">
+                    </div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" name="button" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
 </div>
 

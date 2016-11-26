@@ -2,7 +2,7 @@ body {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     background-color: #30383B;
-    color: #C2C2C2;
+    color: white;
     width: 100%;
     height: 100%;
     font-size: 16px;
@@ -18,6 +18,10 @@ hr {
     height: 3px;
 }
 
+.full-width {
+  max-width: 100%;
+}
+
 .jumbotron {
   padding-top: 70px;
   font-size: 1.6em;
@@ -25,13 +29,12 @@ hr {
   align-items: center;
 }
 
-.like-form {
-  padding-top: 1.5em;
-  padding-left: 1em;
-}
-
 .full-height-div {
   height: 100%;
+}
+
+.fix-color {
+  color: black;
 }
 
 .parallax {
@@ -49,7 +52,11 @@ hr {
 }
 
 .fix-overlapping {
-  padding-top: 70px;
+  padding-top: 100px;
+}
+
+.fix-like {
+  padding-top: .3em;
 }
 
 .text-not-uppercase {
@@ -58,6 +65,15 @@ hr {
 
 .error {
     color: red;
+}
+
+.comment-row {
+  padding: 1em;
+  margin-bottom: 2em;
+  background: 0;
+  background-color: #3B4447;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
 }
 
 .fa-thumbs-o-up {
@@ -71,7 +87,7 @@ hr {
   border: 0;
 }
 
-.user-action:active, .user-action:focus {
+.user-action:active, .user-action:focus, .user-action:hover {
   background: none !important;
   border: 0 !important;
   box-shadow: none !important;
@@ -80,6 +96,18 @@ hr {
 
 .user-action + .user-action {
   margin-top: 1em;
+}
+
+.comment-action {
+  background: none;
+  border: 0;
+}
+
+.comment-action:active, .comment-action:focus, .comment-action:hover {
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .fix-buttons {
@@ -119,14 +147,19 @@ input[type=submit] {
 }
 
 .post-heading {
-    position: relative;
     border-bottom: 3px solid #666;
+    max-width: 100%;
+}
+
+.post {
+  width: 100%;
 }
 
 .post-title {
   text-align: center;
-    font-size: 24px;
-    font-weight: bold;
+  font-size: 24px;
+  font-weight: bold;
+  max-width: 100%;
 }
 
 .post-user-date {
@@ -135,8 +168,8 @@ input[type=submit] {
 }
 
 .post-content {
-    margin-top: 5px;
-    justify-content: center;
+  margin-top: 5px;
+  justify-content: center;
 }
 
 .hoverable:hover {
@@ -150,9 +183,9 @@ input[type=submit] {
     box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
     text-decoration: none;
     color: white;
-    height: 200px;
+    height: 250px;
     margin-bottom: 1em;
-    overflow-y: hidden;
+    padding: 3px;
 }
 
 .card-block {
@@ -161,6 +194,33 @@ input[type=submit] {
 
 .card-title {
   margin-bottom: 1.5em;
+  height: 20%;
+  overflow-y: hidden;
+  border-bottom: 1px solid white;
+}
+
+.card-text {
+  height: 60%;
+  overflow-y: hidden;
+  border-bottom: 1px solid white;
+}
+
+.card-footer {
+  height: 20%;
+}
+
+.comment-title {
+  margin-bottom: 1em;
+}
+
+.comment-card-text {
+  height: 90%;
+  overflow-y: hidden;
+  border-bottom: 1px solid white;
+}
+
+.comment-card-footer {
+  height: 10%;
 }
 
 .front-input {
@@ -209,13 +269,6 @@ input[type=submit] {
   -webkit-box-shadow: 0 1px 0 0 #4285F4 !important;
    box-shadow: 0 1px 0 0 #4285F4 !important;
    border-bottom: 2px solid #4285F4 !important;
-}
-
-
-.card-footer {
-  position: absolute;
-  bottom: 2em;
-  right: 2em;
 }
 
 .link-post {
@@ -285,4 +338,8 @@ input[type=submit] {
     background: none;
     background-color: transparent;
     border: none;
+}
+
+.modal-dialog {
+  color: black;
 }

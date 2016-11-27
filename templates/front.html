@@ -1,43 +1,47 @@
-  {% extends "base.html" %}
+{% extends "base.html" %}
 
-  {% block content %}
+{% block content %}
 
-  {% include 'jumbotron.html' %}
+    {% include 'jumbotron.html' %}
 
-  <div class="container">
+    <div class="container">
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a class="fix-tab" href="#popular" aria-controls="popular" role="tab" data-toggle="tab">Popular</a></li>
-          <li role="presentation"><a class="fix-tab" href="#date" aria-controls="date" role="tab" data-toggle="tab">New</a></li>
+            <li role="presentation" class="active">
+                <a class="fix-tab" href="#popular" aria-controls="popular" role="tab" data-toggle="tab">Popular</a>
+            </li>
+            <li role="presentation">
+                <a class="fix-tab" href="#date" aria-controls="date" role="tab" data-toggle="tab">New</a>
+            </li>
         </ul>
 
         <div class="tab-content tab-effect">
-          <div role="tabpanel" class="tab-pane active" id="popular">
-            <div class="row">
-              {% for p in posts_popular %}
-              <div class="col-xs-12 col-md-4">
-                <a href="/blog/{{p.key().id()}}" class="link-post">
-                  <div class="card hoverable rounded-corners">
-                    {% include 'post-card.html' %}
-                  </div>
-                </a>
-              </div>
-              {% endfor %}
+            <div role="tabpanel" class="tab-pane active" id="popular">
+                <div class="row">
+                    {% for p in posts_popular %}
+                        <div class="col-xs-12 col-md-4">
+                            <a href="/blog/{{p.key().id()}}" class="link-post">
+                                <div class="card hoverable rounded-corners">
+                                    {% include 'post-card.html' %}
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-          </div>
-          <div role="tabpanel" class="tab-pane" id="date">
-            <div class="row">
-              {% for p in posts_created %}
-              <div class="col-xs-12 col-md-4">
-                <a href="/blog/{{p.key().id()}}" class="link-post">
-                  <div class="card hoverable rounded-corners">
-                    {% include 'post-card.html' %}
-                  </div>
-                </a>
-              </div>
-              {% endfor %}
+            <div role="tabpanel" class="tab-pane" id="date">
+                <div class="row">
+                    {% for p in posts_created %}
+                        <div class="col-xs-12 col-md-4">
+                            <a href="/blog/{{p.key().id()}}" class="link-post">
+                                <div class="card hoverable rounded-corners">
+                                    {% include 'post-card.html' %}
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 
-  {% endblock %}
+{% endblock %}

@@ -1,19 +1,21 @@
 <div class="post">
-  <div class="col-xs-12 post-heading">
-    <div class="post-title">
-      {{p.subject}}
+    <div class="col-xs-12 post-heading">
+        <div class="post-title">
+            {{p.subject}}
+        </div>
     </div>
-  </div>
-  <div class="col-xs-12">
-    {{p._render_text | safe}}
-  </div>
+    <div class="col-xs-12">
+        {{p._render_text | safe}}
+    </div>
 
-  <div class="col-xs-12 post-user-date">
-    <div class="pull-left">
-      <a href="/user/{{p.post_user_name}}">{{p.post_user_name}}</a>, {{p.created.strftime("%b %d, %Y")}}
+    <div class="col-xs-12 post-user-date">
+        <div class="pull-left">
+            <a href="/user/{{p.post_user_name}}">{{p.post_user_name}}</a>,
+            {{p.created.strftime("%b %d, %Y")}}
+        </div>
+        <div class="pull-right">
+            <span>Likes:
+                {{p.rating | length}}</span>
+        </div>
     </div>
-    <div class="pull-right">
-      <span>Likes: {{p.rating | length}}</span>
-    </div>
-  </div>
 </div>

@@ -1,24 +1,26 @@
 <div class="row card-block full-height-div">
-  <div class="col-xs-12 card-title">
-    <div class="row">
-      <div class="col-xs-9">
-        <h4>
-          {{p.subject}}
-        </h4>
-      </div>
-      <div class="col-xs-3 fix-like">
-        <span class="pull-right"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>{{p.rating | length}}</span>
-      </div>
+    <div class="col-xs-12 card-title">
+        <div class="row">
+            <div class="col-xs-9">
+                <h4>
+                    {{p.subject}}
+                </h4>
+            </div>
+            <div class="col-xs-3 fix-like">
+                <span class="pull-right">
+                    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>{{p.rating | length}}</span>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="col-xs-12 card-text">
-    <p>
-      {{p.content}}
-    </p>
-  </div>
-  <div class="col-xs-12 card-footer">
-    <cite class="pull-right">
-      {{p.post_user_name}}, {{p.created.strftime("%b %d, %Y")}}
-    </cite>
-  </div>
+    <div class="col-xs-12 card-text">
+        <p>
+            {{p.content}}
+        </p>
+    </div>
+    <div class="col-xs-12 card-footer">
+        <cite class="pull-right">
+            {{p.post_user_name}},
+            {{p.created.strftime("%b %d, %Y")}}
+        </cite>
+    </div>
 </div>

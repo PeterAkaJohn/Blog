@@ -2,20 +2,20 @@
 
 {% block content %}
 
-{% include 'jumbotron.html' %}
+    {% include 'jumbotron.html' %}
 
-<div class="container">
-  <div class="row">
-    {% for p in posts %}
-    <div class="col-xs-12 col-md-4">
-      <a href="/blog/{{p.key().id()}}" class="link-post">
-        <div class="card hoverable rounded-corners">
-          {% include 'post-card.html' %}
+    <div class="container">
+        <div class="row">
+            {% for p in posts %}
+                <div class="col-xs-12 col-md-4">
+                    <a href="/blog/{{p.key().id()}}" class="link-post">
+                        <div class="card hoverable rounded-corners">
+                            {% include 'post-card.html' %}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
         </div>
-      </a>
     </div>
-    {% endfor %}
-  </div>
-</div>
 
 {% endblock %}

@@ -1,34 +1,36 @@
-
-
 <header class="jumbotron parallax">
-  <div class="container full-height-div">
-    <div class="row text-center full-height-div">
-      <div class="col-xs-12 col-md-8 full-height-div">
-        <h2>ShareIt</h2>
-        <ul class="jumbo-list">
-          <li class="jumbo-list-element">Register/Login to help someone in need and share your experience</li>
-          <li class="jumbo-list-element">Click on the different tabs to order posts in different ways</li>
-          <li class="jumbo-list-element">Click on the username(even your own) throughout the website to check all their posts and comments</li>
-        </ul>
-      </div>
-      <div class="col-xs-12 col-md-4 full-height-div register-section">
-        <h2>Register</h2>
-        <form method="post" action="/signup">
-          <div class="form-group">
-            <input type="text" class="form-control front-input" id="username" placeholder="Username" value="{{username}}" name="username"><span class="error">{{error_username}}</span>
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control front-input" id="password" placeholder="Password" name="password"><span class="error">{{error_password}}</span>
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control front-input" id="verify" name="verify" placeholder="Verify password"><span class="error">{{error_verify}}</span>
-          </div>
-          <div class="form-group">
-            <input type="email" class="form-control front-input" id="email" placeholder="E-mail" value="{{email}}" name="email"><span class="error">{{error_email}}</span>
-          </div>
-          <button type="submit" class="btn btn-success pull-right text-uppercase">Register</button>
-        </form>
-      </div>
+    <div class="container full-height-div">
+        <div class="row text-center full-height-div">
+            <div class="col-xs-12 col-md-8 full-height-div">
+                <h2>ShareIt</h2>
+                <ul class="jumbo-list">
+                    <li class="jumbo-list-element">Register/Login to help someone in need and share your experience</li>
+                    <li class="jumbo-list-element">Click on the different tabs to order posts in different ways</li>
+                    <li class="jumbo-list-element">Click on the username(even your own) throughout the website to check all their posts and comments</li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-md-4 full-height-div register-section">
+                <h2>Register</h2>
+                <form method="post" action="/signup">
+                    <div class="form-group">
+                        <input type="text" class="form-control front-input" id="username" placeholder="Username" value="{{username}}" name="username">
+                        <span class="error">{{error_username}}</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control front-input" id="password" placeholder="Password" name="password">
+                        <span class="error">{{error_password}}</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control front-input" id="verify" name="verify" placeholder="Verify password">
+                        <span class="error">{{error_verify}}</span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control front-input" id="email" placeholder="E-mail" value="{{email}}" name="email">
+                        <span class="error">{{error_email}}</span>
+                    </div>
+                    <button type="submit" class="btn btn-success pull-right text-uppercase">Register</button>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </header>

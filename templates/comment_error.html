@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container fix-overlapping">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Comment</h2>
+                <form method="post">
+                    <div class="form-group">
+                        <label for="comment"></label>
+                        <textarea class="form-control full-width fix-color" rows="4" name="comment">{{content}}</textarea>
+                    </div>
+                    <span class="error">{{error}}</span>
+                </div>
+                <button type="submit" class="btn btn-primary">Send</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

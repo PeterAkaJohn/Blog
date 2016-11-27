@@ -22,6 +22,14 @@ hr {
   max-width: 100%;
 }
 
+.fix-outline:focus {
+  outline: none;
+}
+
+.fix-spacing {
+  padding-top: 2em;
+}
+
 .jumbotron {
   padding-top: 70px;
   font-size: 1.6em;

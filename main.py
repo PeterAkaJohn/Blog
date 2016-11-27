@@ -52,25 +52,6 @@ class BlogHandler(webapp2.RequestHandler):
         cookie_val = self.request.cookies.get(name)
         return cookie_val and check_secure_val(cookie_val)
 
-    # def render_postpage(self, post_id, errors):
-    #     post = Post.by_id(int(post_id))
-    #     comments = Comment.get_all(int(post_id))
-    #
-    #     if not post:
-    #         self.error(404)
-    #         return
-    #     same_user = False
-    #     user_id = False
-    #     user_liked = None
-    #     if self.user:
-    #         user_id = self.user.key().id()
-    #         user_liked = check_user_liked_post(user_id, post)
-    #         if user_id == post.user_id:
-    #             same_user = True
-    #
-    #     self.render("permalink.html", post = post, comments = comments, same_user = same_user, user_id = user_id, user_liked = user_liked, errors = errors)
-
-
     def login(self, user):
         self.set_secure_cookie('user_id', str(user.key().id()))
 
@@ -81,8 +62,6 @@ class BlogHandler(webapp2.RequestHandler):
         webapp2.RequestHandler.initialize(self, *a, **kw)
         uid = self.read_secure_cookie('user_id')
         self.user = uid and User.by_id(int(uid))
-
-
 
 # users
 def make_salt(length = 5):
@@ -179,143 +158,22 @@ class Comment(db.Model):
     def get_all_user_comments(cls, username):
         return Comment.all().filter('username =', username).order('-date').fetch(None)
 
-
-class DeletePost(BlogHandler):
-    def post(self):
-        if not self.user:
-            self.redirect('/')
-            return
-        post_id = self.request.get('post_id')
-        post_user_id = self.request.get('post_user_id')
-        logging.info(post_id)
-        if self.user.key().id() == long(post_user_id):
-            #post_key = db.Key.from_path('Post', int(post_id), parent=blog_key())
-            #post = db.get(post_key)
-            post = Post.by_id(int(post_id))
-            post.delete()
-            time.sleep(1)
-            self.redirect('/')
-        else:
-            self.redirect('/blog/' + post_id)
-
-class DeleteComment(BlogHandler):
-    """docstring for DeleteComment."""
-    def post(self):
-        if not self.user:
-            self.redirect('/')
-            return
-        post_id = self.request.get('post_id')
-        comment_id = self.request.get('comment_id')
-        comment_user_id = self.request.get('comment_user_id')
-        if self.user.key().id() == long(comment_user_id):
-            #post_key = db.Key.from_path('Post', int(post_id), parent=blog_key())
-            #post = db.get(post_key)
-            comment = Comment.by_id(int(comment_id))
-            comment.delete()
-            time.sleep(1)
-            self.redirect('/blog/' + post_id)
-        else:
-            self.redirect('/blog/' + post_id)
-
-
-class EditPost(BlogHandler):
-    def post(self):
-        post_id = self.request.get('post_id')
-        post_user_id = self.request.get('post_user_id')
-        content = self.request.get('new-content')
-        if self.user.key().id() == long(post_user_id):
-            #post_key = db.Key.from_path('Post', int(post_id), parent=blog_key())
-            #post = db.get(post_key)
-            post = Post.by_id(int(post_id))
-            post.content = content
-            post.put()
-            #time.sleep(2)
-            self.redirect('/blog/' + post_id)
-
-class EditComment(BlogHandler):
-    """docstring for EditComment."""
-    def post(self):
-        post_id = self.request.get('post_id')
-        comment_user_id = self.request.get('comment_user_id')
-        comment_id = self.request.get('comment_id')
-        content = self.request.get('new-comment')
-        if not content:
-            content = " "
-        if self.user.key().id() == long(comment_user_id):
-            #post_key = db.Key.from_path('Post', int(post_id), parent=blog_key())
-            #post = db.get(post_key)
-            comment = Comment.by_id(int(comment_id))
-            comment.content = content
-            comment.put()
-            #time.sleep(2)
-        self.redirect('/blog/' + post_id)
-
-class LikePost(BlogHandler):
-    """docstring for LikePost."""
-    def post(self):
-        if not self.user:
-            self.redirect('/login')
-            return
-        post_id = self.request.get('post_id')
-        post_user_id = self.request.get('post_user_id')
-        user_id = self.user.key().id()
-        if user_id != long(post_user_id):
-            post = Post.by_id(int(post_id))
-            if user_id in post.rating:
-                post.rating.remove(user_id)
-            else:
-                post.rating.append(user_id)
-            post.put()
-        self.redirect('/blog/' + post_id)
-
-class BlogFront(BlogHandler):
-    def get(self):
-        posts = Post.get_all()
-        self.render('front.html', posts = posts)
-
-class PostPage(BlogHandler):
-    def get(self, post_id):
-        post = Post.by_id(int(post_id))
-        comments = Comment.get_all(int(post_id))
-
-        if not post:
-            self.error(404)
-            return
-        same_user = False
-        user_id = False
-        user_liked = None
-        if self.user:
-            user_id = self.user.key().id()
-            user_liked = check_user_liked_post(user_id, post)
-            if user_id == post.user_id:
-                same_user = True
-
-        self.render("permalink.html", post = post, comments = comments, same_user = same_user, user_id = user_id, user_liked = user_liked)
-
-def check_user_liked_post(user_id, post):
-    if user_id in post.rating:
-        return True
-
-
 class NewComment(BlogHandler):
     """docstring for NewComment."""
-    def post(self):
+    def post(self, post_id):
         if not self.user:
             self.redirect('/login')
             return
 
-        post_id = self.request.get('post_id')
         content = self.request.get('comment')
 
         if content:
             comment = Comment(parent = blog_key(), content = content, username = self.user.name, user_id = self.user.key().id(), post_id = int(post_id))
             comment.put()
-            self.redirect('/blog/' + post_id, True)
+            self.redirect('/blog/' + post_id)
         else:
             error = "content, please!"
-            self.redirect('/blog/'+ post_id, True)
-            #self.render("permalink.html",error_comment=error)
-
+            self.render('comment_error.html', error = error)
 
 class NewPost(BlogHandler):
     def get(self):
@@ -339,6 +197,118 @@ class NewPost(BlogHandler):
         else:
             error = "subject and content, please!"
             self.render("newpost.html", subject=subject, content=content,error=error)
+
+class DeletePost(BlogHandler):
+    def post(self, post_id):
+        if not self.user:
+            self.redirect('/')
+            return
+        post_user_id = self.request.get('post_user_id')
+        logging.info(post_id)
+        if self.user.key().id() == long(post_user_id):
+            #post_key = db.Key.from_path('Post', int(post_id), parent=blog_key())
+            #post = db.get(post_key)
+            post = Post.by_id(int(post_id))
+            post.delete()
+            time.sleep(1)
+            self.redirect('/')
+        else:
+            self.redirect('/blog/' + post_id)
+
+class DeleteComment(BlogHandler):
+    """docstring for DeleteComment."""
+    def post(self, post_id, comment_id):
+        if not self.user:
+            self.redirect('/')
+            return
+        comment_user_id = self.request.get('comment_user_id')
+        if self.user.key().id() == long(comment_user_id):
+            #post_key = db.Key.from_path('Post', int(post_id), parent=blog_key())
+            #post = db.get(post_key)
+            comment = Comment.by_id(int(comment_id))
+            comment.delete()
+            time.sleep(1)
+            self.redirect('/blog/' + post_id)
+        else:
+            self.redirect('/blog/' + post_id)
+
+class EditComment(BlogHandler):
+    """docstring for EditComment."""
+    def post(self, post_id, comment_id):
+        comment = Comment.by_id(int(comment_id))
+        comment_user_id = comment.user_id
+        content = self.request.get('comment')
+        if not content:
+            error = "Content required"
+            self.render('comment_error.html', error = error)
+            return
+        if self.user.key().id() == comment_user_id:
+            comment.content = content
+            comment.put()
+        self.redirect('/blog/' + post_id)
+
+class LikePost(BlogHandler):
+    """docstring for LikePost."""
+    def post(self, post_id):
+        if not self.user:
+            self.redirect('/login')
+            return
+        post_user_id = self.request.get('post_user_id')
+        user_id = self.user.key().id()
+        if user_id != long(post_user_id):
+            post = Post.by_id(int(post_id))
+            if user_id in post.rating:
+                post.rating.remove(user_id)
+            else:
+                post.rating.append(user_id)
+            post.put()
+        self.redirect('/blog/' + post_id)
+
+class BlogFront(BlogHandler):
+    def get(self):
+        posts = Post.get_all()
+        self.render('front.html', posts = posts)
+
+def render_postpage(self, post_id, error_edit = None):
+    post = Post.by_id(int(post_id))
+    comments = Comment.get_all(int(post_id))
+
+    if not post:
+        self.error(404)
+        return
+    same_user = False
+    user_id = False
+    user_liked = None
+    if self.user:
+        user_id = self.user.key().id()
+        user_liked = check_user_liked_post(user_id, post)
+        if user_id == post.user_id:
+            same_user = True
+    self.render("permalink.html", post = post, comments = comments, same_user = same_user, user_id = user_id, user_liked = user_liked, error_edit = error_edit)
+
+def check_user_liked_post(user_id, post):
+    if user_id in post.rating:
+        return True
+
+class PostPage(BlogHandler):
+    def get(self, post_id):
+        render_postpage(self, post_id)
+
+    # edit post
+    def post(self, post_id):
+        post_user_id = self.request.get('post_user_id')
+        subject = self.request.get('post_subject')
+        content = self.request.get('new-content')
+        if self.user.key().id() == long(post_user_id):
+            if not content or not subject:
+                error_edit = "Subject and content required"
+                render_postpage(self, post_id, error_edit)
+            else:
+                post = Post.by_id(int(post_id))
+                post.content = content
+                post.subject = subject
+                post.put()
+                self.redirect('/blog/' + post_id)
 
 USER_RE = re.compile(r"^[a-zA-Z0-9_-]{3,20}$")
 def valid_username(username):
@@ -447,12 +417,11 @@ app = webapp2.WSGIApplication([('/', BlogFront),
                                ('/signup', Register),
                                ('/login', Login),
                                ('/logout', Logout),
-                               ('/blog/post/delete', DeletePost),
-                               ('/blog/post/edit', EditPost),
-                               ('/blog/post/like', LikePost),
-                               ('/blog/post/addcomment', NewComment),
-                               ('/blog/post/comment/delete', DeleteComment),
-                               ('/blog/post/comment/edit', EditComment),
+                               ('/blog/([0-9]+)/delete', DeletePost),
+                               ('/blog/([0-9]+)/like', LikePost),
+                               ('/blog/([0-9]+)/comment/add', NewComment),
+                               ('/blog/([0-9]+)/comment/delete/([0-9]+)', DeleteComment),
+                               ('/blog/([0-9]+)/comment/edit/([0-9]+)', EditComment),
                                ('/user/(.*)', UserPage)
                                ],
                               debug=True)

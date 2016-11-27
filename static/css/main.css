@@ -22,9 +22,7 @@ hr {
     border: none;
 }
 
-.nav-tabs-effect {
-
-}
+.nav-tabs-effect {}
 
 .tab-content {
     background-color: #272E30;
@@ -412,7 +410,7 @@ input[type=submit] {
 }
 
 .navbar-inverse .navbar-nav li a:hover {
-  border-bottom: 2px solid white;
+    border-bottom: 2px solid white;
 }
 
 .navbar-inverse .navbar-toggle, .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {

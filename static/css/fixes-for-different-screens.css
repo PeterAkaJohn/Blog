@@ -1,50 +1,48 @@
 @media screen and (max-width:800px) {
-  .title-logo {
-    margin-top: 20px;
-    max-width: 100px;
-    max-height: 100px;
-  }
+    .title-logo {
+        margin-top: 20px;
+        max-width: 100px;
+        max-height: 100px;
+    }
 }
 
 @media screen and (max-width: 767px) {
-  .fix-icon-position {
-    margin-bottom: 40px;
-  }
+    .fix-icon-position {
+        margin-bottom: 40px;
+    }
+    .navbar-custom .navbar-collapse {
+        background-color: #2D383B;
+        text-align: right;
+        box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+    }
+    .scrolled-nav {
+        background-color: #2572DE;
+    }
+    .scrolled-nav .navbar-collapse {
+        background-color: #2572DE;
+        text-align: right;
+    }
+    .like-form {
+        padding-left: 0;
+        margin-left: 0;
+    }
+    .register-section {
+        border: none;
+    }
+    .user-action {
+        padding: 0 !important;
+    }
+}
 
-  .navbar-custom .navbar-collapse {
-    background-color: #2D383B;
-    text-align: right;
-    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
-  }
-
-  .scrolled-nav {
-    background-color: #2572DE;
-  }
-
-  .scrolled-nav .navbar-collapse {
-    background-color: #2572DE;
-    text-align: right;
-  }
-
-  .like-form {
-    padding-left: 0;
-    margin-left: 0;
-  }
-
-  .register-section {
-    border: none;
-  }
-
-  .user-action {
-    padding: 0 !important;
-  }
-
+@media screen and (max-width: 992px) {
+    .register-section {
+        padding-top: 1em;
+        border: none;
+    }
 }
 
 @media screen and (min-width: 992px) {
-
-  .register-section {
-    padding-top: 1em;
-  }
-
+    .register-section {
+        padding-top: 1em;
+    }
 }

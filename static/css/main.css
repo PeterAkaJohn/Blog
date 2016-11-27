@@ -9,7 +9,7 @@ body {
 }
 
 html {
-  height: 100%;
+    height: 100%;
 }
 
 hr {
@@ -18,40 +18,109 @@ hr {
     height: 3px;
 }
 
+.nav-tabs {
+    border: none;
+}
+
+.nav-tabs-effect {
+
+}
+
+.tab-content {
+    background-color: #272E30;
+    color: #fff;
+    padding: 5px;
+}
+
+.tab-effect {
+    position: relative;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+
+.tab-effect:before, .tab-effect:after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    top: 10px;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    border-radius: 100px / 10px;
+}
+
+.tab-effect:after {
+    right: 10px;
+    left: auto;
+    transform: skew(8deg) rotate(3deg);
+}
+
+.nav-tabs>li>a {
+    color: white;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    background-color: #272E30;
+    border-color: transparent;
+    color: white;
+}
+
 .full-width {
-  max-width: 100%;
+    max-width: 100%;
 }
 
 .fix-outline:focus {
-  outline: none;
+    outline: none;
 }
 
 .fix-spacing {
-  padding-top: 2em;
+    padding-top: 2em;
 }
 
 .jumbotron {
-  padding-top: 70px;
-  font-size: 1.6em;
-  display: flex;
-  align-items: center;
+    padding-top: 70px;
+    font-size: 1.6em;
+    min-height: 75%;
+}
+
+.jumbo-list {
+    margin-top: 2em;
+}
+
+.jumbo-list-element+.jumbo-list-element {
+    margin-top: 1em;
+}
+
+.register-section {
+    border-left: 1px solid white;
+}
+
+.fix-tab {
+    color: white;
+}
+
+.fix-tab:hover, .fix-tab:active {
+    color: black;
+}
+
+.main-content {
+    height: 100%;
+    width: 100%;
 }
 
 .full-height-div {
-  height: 100%;
+    height: 100%;
 }
 
 .fix-color {
-  color: black;
+    color: black;
 }
 
 .parallax {
     /* The image used */
     background-image: url("/static/images/cosmic-dark-ages.jpg");
-
     /* Set a specific height */
     min-height: 75vh;
-
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
@@ -60,15 +129,15 @@ hr {
 }
 
 .fix-overlapping {
-  padding-top: 100px;
+    padding-top: 100px;
 }
 
 .fix-like {
-  padding-top: .3em;
+    padding-top: .3em;
 }
 
 .text-not-uppercase {
-  text-transform: none !important;
+    text-transform: none !important;
 }
 
 .error {
@@ -76,67 +145,67 @@ hr {
 }
 
 .comment-row {
-  padding: 1em;
-  margin-bottom: 2em;
-  background: 0;
-  background-color: #3B4447;
-  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
-  border-radius: 10px;
+    padding: 1em;
+    margin-bottom: 2em;
+    background: 0;
+    background-color: #3B4447;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12);
+    border-radius: 10px;
 }
 
 .fa-thumbs-o-up {
-  margin-right: .5em;
+    margin-right: .5em;
 }
 
 .user-action {
-  width: 100%;
-  margin-left: 1em;
-  background: none;
-  border: 0;
+    width: 100%;
+    margin-left: 1em;
+    background: none;
+    border: 0;
 }
 
 .user-action:active, .user-action:focus, .user-action:hover {
-  background: none !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  outline: none !important;
+    background: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
 }
 
-.user-action + .user-action {
-  margin-top: 1em;
+.user-action+.user-action {
+    margin-top: 1em;
 }
 
 .comment-action {
-  background: none;
-  border: 0;
+    background: none;
+    border: 0;
 }
 
 .comment-action:active, .comment-action:focus, .comment-action:hover {
-  background: none !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  outline: none !important;
+    background: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
 }
 
 .fix-buttons {
-  padding-top: 2em;
+    padding-top: 2em;
 }
 
 textarea {
-  width: 100%;
-  height: 400px;
-  font-size: 17px;
-  color: black;
+    width: 100%;
+    height: 400px;
+    font-size: 17px;
+    color: black;
 }
 
 input[type=submit] {
-  font-size: 24px;
-  color: white;
+    font-size: 24px;
+    color: white;
 }
 
 .like-form {
-  margin-left: 1em;
-  margin-top: 1.3em;
+    margin-left: 1em;
+    margin-top: 1.3em;
 }
 
 .main-title {
@@ -150,8 +219,8 @@ input[type=submit] {
 }
 
 .main-title:hover {
-  text-decoration: none;
-  color: white;
+    text-decoration: none;
+    color: white;
 }
 
 .post-heading {
@@ -160,24 +229,24 @@ input[type=submit] {
 }
 
 .post {
-  width: 100%;
+    width: 100%;
 }
 
 .post-title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  max-width: 100%;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    max-width: 100%;
 }
 
 .post-user-date {
-  margin-top: 3em;
-  border-top: 2px solid #666;
+    margin-top: 3em;
+    border-top: 2px solid #666;
 }
 
 .post-content {
-  margin-top: 5px;
-  justify-content: center;
+    margin-top: 5px;
+    justify-content: center;
 }
 
 .hoverable:hover {
@@ -197,94 +266,96 @@ input[type=submit] {
 }
 
 .card-block {
-  padding: 1.25rem;
+    padding: 1.25rem;
 }
 
 .card-title {
-  margin-bottom: 1.5em;
-  height: 20%;
-  overflow-y: hidden;
-  border-bottom: 1px solid white;
+    margin-bottom: 1.5em;
+    height: 20%;
+    overflow-y: hidden;
+    border-bottom: 1px solid white;
 }
 
 .card-text {
-  height: 60%;
-  overflow-y: hidden;
-  border-bottom: 1px solid white;
+    height: 60%;
+    overflow-y: hidden;
+    border-bottom: 1px solid white;
 }
 
 .card-footer {
-  height: 20%;
+    height: 20%;
 }
 
 .comment-title {
-  margin-bottom: 1em;
+    margin-bottom: 1em;
 }
 
 .comment-card-text {
-  height: 90%;
-  overflow-y: hidden;
-  border-bottom: 1px solid white;
+    height: 90%;
+    overflow-y: hidden;
+    border-bottom: 1px solid white;
 }
 
 .comment-card-footer {
-  height: 10%;
+    height: 10%;
 }
 
 .front-input {
-  background: transparent;
-  text-align: center;
-  font-size: 16px;
-  margin-bottom: 3em;
-  color: white;
+    background: transparent;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 3em;
+    color: white;
 }
 
 .front-input::-webkit-input-placeholder {
-  text-align: center;
-  color: white;
+    text-align: center;
+    color: white;
 }
 
-.front-input:-moz-placeholder { /* Firefox 18- */
-  text-align: center;
-  color: white;
+.front-input:-moz-placeholder {
+    /* Firefox 18- */
+    text-align: center;
+    color: white;
 }
 
-.front-input::-moz-placeholder {  /* Firefox 19+ */
-  text-align: center;
-  color: white;
+.front-input::-moz-placeholder {
+    /* Firefox 19+ */
+    text-align: center;
+    color: white;
 }
 
 .front-input:-ms-input-placeholder {
-  text-align: center;
-  color: white;
+    text-align: center;
+    color: white;
 }
 
 .form-control.front-input {
-  border: 2px solid white !important;
-  border-top: 0px !important;
-  border-left: 0px !important;
-  border-right: 0px !important;
-  border-radius: 0px !important;
+    border: 2px solid white !important;
+    border-top: 0px !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+    border-radius: 0px !important;
 }
 
 .front-input:active {
-  border: 0 ;
-  outline: none;
+    border: 0;
+    outline: none;
 }
 
 .form-control.front-input:focus {
-  outline: none !important;
-  -webkit-box-shadow: 0 1px 0 0 #4285F4 !important;
-   box-shadow: 0 1px 0 0 #4285F4 !important;
-   border-bottom: 2px solid #4285F4 !important;
+    outline: none !important;
+    -webkit-box-shadow: 0 1px 0 0 #4285F4 !important;
+    box-shadow: 0 1px 0 0 #4285F4 !important;
+    border-bottom: 2px solid #4285F4 !important;
 }
 
 .link-post {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .link-post:hover {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 .rounded-corners {
@@ -292,7 +363,6 @@ input[type=submit] {
     -moz-border-radius: 10px;
     border-radius: 10px;
 }
-
 
 .navbar-custom .navbar-brand {
     color: white;
@@ -342,6 +412,10 @@ input[type=submit] {
     background: none;
 }
 
+.navbar-inverse .navbar-nav li a:hover {
+  border-bottom: 2px solid white;
+}
+
 .navbar-inverse .navbar-toggle, .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
     background: none;
     background-color: transparent;
@@ -349,5 +423,5 @@ input[type=submit] {
 }
 
 .modal-dialog {
-  color: black;
+    color: black;
 }

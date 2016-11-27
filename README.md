@@ -8,4 +8,4 @@
 
  * errors handled client side and server side
 
- * can't decide on the name of the blog
+ * using bootstrap tab for the front page

@@ -135,11 +135,14 @@ class Post(db.Model):
         return Post.all().order('-created')
 
     @classmethod
+    def get_all_by_likes(cls):
+        return Post.all().order('rating')
+
+    @classmethod
     def get_all_user_posts(cls, username):
         return Post.all().filter('post_user_name =', username).order('-created').fetch(None)
 
 class Comment(db.Model):
-    """docstring for Comment."""
     content = db.TextProperty(required=True)
     date = db.DateTimeProperty(auto_now_add = True)
     username = db.StringProperty(required=True)
@@ -159,7 +162,6 @@ class Comment(db.Model):
         return Comment.all().filter('username =', username).order('-date').fetch(None)
 
 class NewComment(BlogHandler):
-    """docstring for NewComment."""
     def post(self, post_id):
         if not self.user:
             self.redirect('/login')
@@ -216,7 +218,6 @@ class DeletePost(BlogHandler):
             self.redirect('/blog/' + post_id)
 
 class DeleteComment(BlogHandler):
-    """docstring for DeleteComment."""
     def post(self, post_id, comment_id):
         if not self.user:
             self.redirect('/')
@@ -233,7 +234,6 @@ class DeleteComment(BlogHandler):
             self.redirect('/blog/' + post_id)
 
 class EditComment(BlogHandler):
-    """docstring for EditComment."""
     def post(self, post_id, comment_id):
         comment = Comment.by_id(int(comment_id))
         comment_user_id = comment.user_id
@@ -248,7 +248,6 @@ class EditComment(BlogHandler):
         self.redirect('/blog/' + post_id)
 
 class LikePost(BlogHandler):
-    """docstring for LikePost."""
     def post(self, post_id):
         if not self.user:
             self.redirect('/login')
@@ -266,8 +265,9 @@ class LikePost(BlogHandler):
 
 class BlogFront(BlogHandler):
     def get(self):
-        posts = Post.get_all()
-        self.render('front.html', posts = posts)
+        posts_created = Post.get_all()
+        posts_popular = Post.get_all_by_likes()
+        self.render('front.html', posts_created = posts_created, posts_popular = posts_popular)
 
 def render_postpage(self, post_id, error_edit = None):
     post = Post.by_id(int(post_id))
@@ -395,21 +395,11 @@ class Logout(BlogHandler):
         self.redirect('/')
 
 class UserPage(BlogHandler):
-    """docstring for UserPage."""
     def get(self, username):
         #user_id = self.user.key().id()
         posts = Post.get_all_user_posts(username)
         comments = Comment.get_all_user_comments(username)
         self.render('userpage.html', posts = posts, comments = comments)
-
-
-class Welcome(BlogHandler):
-    def get(self):
-        username = self.request.get('username')
-        if valid_username(username):
-            self.render('welcome.html', username = username)
-        else:
-            self.redirect('/signup')
 
 app = webapp2.WSGIApplication([('/', BlogFront),
                                ('/blog/([0-9]+)', PostPage),

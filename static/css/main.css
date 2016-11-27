@@ -52,7 +52,6 @@ hr {
 .tab-effect:after {
     right: 10px;
     left: auto;
-    transform: skew(8deg) rotate(3deg);
 }
 
 .nav-tabs>li>a {

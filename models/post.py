@@ -1,6 +1,7 @@
 from google.appengine.ext import db
 import os
 import jinja2
+from user import User
 
 template_dir = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
@@ -18,9 +19,8 @@ class Post(db.Model):
     content = db.TextProperty(required = True)
     created = db.DateTimeProperty(auto_now_add = True)
     last_modified = db.DateTimeProperty(auto_now = True)
-    user_id = db.IntegerProperty(required = True)
+    user = db.ReferenceProperty(User, required = True)
     rating = db.ListProperty(long)
-    post_user_name = db.StringProperty(required = True)
 
     def render(self):
         self._render_text = self.content.replace('\n', '<br>')
@@ -40,4 +40,5 @@ class Post(db.Model):
 
     @classmethod
     def get_all_user_posts(cls, username):
-        return Post.all().filter('post_user_name =', username).order('-created').fetch(None)
+        user = User.by_name(username)
+        return Post.all().filter('user =', user).order('-created').fetch(None)

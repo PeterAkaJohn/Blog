@@ -1,4 +1,6 @@
 from google.appengine.ext import db
+from user import User
+from post import Post
 
 def blog_key(name = 'default'):
     return db.Key.from_path('blogs', name)
@@ -6,9 +8,8 @@ def blog_key(name = 'default'):
 class Comment(db.Model):
     content = db.TextProperty(required=True)
     date = db.DateTimeProperty(auto_now_add = True)
-    username = db.StringProperty(required=True)
-    user_id = db.IntegerProperty(required = True)
-    post_id = db.IntegerProperty(required = True)
+    user = db.ReferenceProperty(User, required=True)
+    post = db.ReferenceProperty(Post, required=True)
 
     @classmethod
     def by_id(cls, comment_id):
@@ -16,8 +17,10 @@ class Comment(db.Model):
 
     @classmethod
     def get_all(cls, post_id):
-        return Comment.all().filter('post_id =', post_id).order('-date').fetch(None)
+        post = Post.by_id(post_id)
+        return Comment.all().filter('post =', post).order('-date').fetch(None)
 
     @classmethod
     def get_all_user_comments(cls, username):
-        return Comment.all().filter('username =', username).order('-date').fetch(None)
+        user = User.by_name(username)
+        return Comment.all().filter('user =', user).order('-date').fetch(None)

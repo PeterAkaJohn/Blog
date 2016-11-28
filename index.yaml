@@ -12,7 +12,19 @@ indexes:
 
 - kind: Comment
   properties:
+  - name: post
+  - name: date
+    direction: desc
+
+- kind: Comment
+  properties:
   - name: post_id
+  - name: date
+    direction: desc
+
+- kind: Comment
+  properties:
+  - name: user
   - name: date
     direction: desc
 
@@ -31,6 +43,18 @@ indexes:
 - kind: Post
   properties:
   - name: post_user_name
+  - name: created
+    direction: desc
+
+- kind: Post
+  properties:
+  - name: user
+  - name: created
+    direction: desc
+
+- kind: Post
+  properties:
+  - name: user.name
   - name: created
     direction: desc
 

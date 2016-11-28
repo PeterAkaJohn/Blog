@@ -6,7 +6,7 @@ class EditPost(BlogHandler):
         post = Post.by_id(int(post_id))
         subject = self.request.get('subject')
         content = self.request.get('content')
-        if self.user.key().id() == post.user_id:
+        if self.user.key().id() == post.user.key().id():
             if not content or not subject:
                 error_edit = "Subject and content required"
                 self.render('editpost.html', error = error_edit)

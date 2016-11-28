@@ -21,6 +21,6 @@ class PostPage(BlogHandler):
         if self.user:
             user_id = self.user.key().id()
             user_liked = check_user_liked_post(user_id, post)
-            if user_id == post.user_id:
+            if user_id == post.user.key().id():
                 same_user = True
         self.render("permalink.html", post = post, comments = comments, same_user = same_user, user_id = user_id, user_liked = user_liked)

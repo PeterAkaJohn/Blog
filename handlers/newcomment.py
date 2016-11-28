@@ -1,6 +1,7 @@
 import bloghandler
 from bloghandler import BlogHandler
 from models import Comment
+from models import Post
 
 class NewComment(BlogHandler):
     def post(self, post_id):
@@ -11,7 +12,8 @@ class NewComment(BlogHandler):
         content = self.request.get('comment')
 
         if content:
-            comment = Comment(parent = bloghandler.blog_key(), content = content, username = self.user.name, user_id = self.user.key().id(), post_id = int(post_id))
+            post = Post.by_id(int(post_id))
+            comment = Comment(parent = bloghandler.blog_key(), content = content, user = self.user, post = post)
             comment.put()
             self.redirect('/blog/' + post_id)
         else:

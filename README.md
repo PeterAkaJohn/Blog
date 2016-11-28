@@ -9,3 +9,7 @@
  * errors handled client side and server side
 
  * using bootstrap tab for the front page
+
+# Usage
+
+ * open terminal in the directory and run the application with `dev_appserver.py .` and visit localhost:8080 in your browser

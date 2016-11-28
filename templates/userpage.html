@@ -23,7 +23,7 @@
             </div>
             {% for comment in comments %}
                 <div class="col-xs-12 col-md-4">
-                    <a href="/blog/{{comment.post_id}}" class="link-post">
+                    <a href="/blog/{{comment.post.key().id()}}" class="link-post">
                         <div class="card hoverable rounded-corners">
                             {% include 'comment-card.html' %}
                         </div>

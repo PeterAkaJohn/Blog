@@ -1,17 +1,24 @@
-% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 
-    <div class="container">
+    <div class="container fix-overlapping">
         <div class="row">
             <div class="col-xs-12">
-                <form method="post" action="post/edit">
-                    <input type="hidden" name="post_id" value="{{post.key().id()}}">
-                    <input type="hidden" name="post_user_id" value="{{post.user_id}}">
+                <form method="post">
+                    <div class="form-group">
+                      <label for="subject"></label>
+                      <input type="text" class="form-control" id="subject" name="subject" placeholder="">
+                    </div>
                     <div class="form-group">
                         <label for="content"></label>
-                        <input type="text" class="form-control" id="content" name="content" placeholder="">
+                      <textarea rows="8" class="form-control full-width" name="content"></textarea>
                     </div>
+                    {% if error %}
+                    <div class="error">
+                      {{error}}
+                    </div>
+                    {% endif %}
                     <button type="submit" class="btn btn-info" name="button">Edit</button>
                 </form>
             </div>

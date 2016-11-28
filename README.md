@@ -9,3 +9,5 @@
  * errors handled client side and server side
 
  * using bootstrap tab for the front page
+
+ * refactored the code for maintainability reasons as suggested by udacity's reviewer

@@ -40,25 +40,19 @@
                     </div>
                 {% endif %}
             </div>
-            {% if error_edit %}
-                <div class="col-xs-12">
-                    <p class="error">{{error_edit}}</p>
-                </div>
-            {% endif %}
         </div>
 
         <div class="collapse" id="editCollapse">
             <div class="row">
                 <div class="col-xs-12">
-                    <form method="post">
-                        <input type="hidden" name="post_user_id" value="{{post.user_id}}">
+                    <form method="post" action="{{post.key().id()}}/edit">
                         <div class="form-group">
                             <label for="post_subject"></label>
-                            <input type="text" class="form-control fix-color" name="post_subject" value="{{post.subject}}">
+                            <input type="text" class="form-control fix-color" name="subject" value="{{post.subject}}">
                         </div>
                         <div class="form-group">
                             <label for="message-text" class="control-label"></label>
-                            <textarea rows="8" class="form-control full-width fix-color" name="new-content">{{post._render_text}}</textarea>
+                            <textarea rows="8" class="form-control full-width fix-color" name="content">{{post._render_text}}</textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Edit Message</button>
                     </div>
